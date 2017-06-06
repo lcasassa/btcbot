@@ -4,27 +4,43 @@ import urllib
 import json
 
 ''' kraken '''
-headers = { 'User-Agent': 'krakenex/0.0.5 (+https://github.com/veox/python2-krakenex)'}
-uri = 'api.kraken.com'
-conn = httplib.HTTPSConnection(uri, timeout=30)
-url = 'https://api.kraken.com/0/public/Ticker'
-req =  {'pair': 'XXBTZUSD'}
-data = urllib.urlencode(req)
-conn.request("POST", url, data, headers)
-response = conn.getresponse()
+kraken = None
+for i in range(3):
+    try:
+        headers = { 'User-Agent': 'krakenex/0.0.5 (+https://github.com/veox/python2-krakenex)'}
+        uri = 'api.kraken.com'
+        conn = httplib.HTTPSConnection(uri, timeout=30)
+        url = 'https://api.kraken.com/0/public/Ticker'
+        req =  {'pair': 'XXBTZUSD'}
+        data = urllib.urlencode(req)
+        conn.request("POST", url, data, headers)
+        response = conn.getresponse()
+        kraken = json.loads(response.read())
+        break
+    except:
+        pass
 
-kraken = json.loads(response.read())
-
+if kraken is None:
+    import sys
+    sys.exit(-1)
 
 ''' surbtc '''
-uri = 'www.surbtc.com'
-conn = httplib.HTTPSConnection(uri, timeout=30)
-url = 'https://www.surbtc.com/api/v2/markets/btc-clp/ticker'
-conn.request("GET", url)
-response = conn.getresponse()
+surbtc = None
+for i in range(3):
+    try:
+        uri = 'www.surbtc.com'
+        conn = httplib.HTTPSConnection(uri, timeout=30)
+        url = 'https://www.surbtc.com/api/v2/markets/btc-clp/ticker'
+        conn.request("GET", url)
+        response = conn.getresponse()
+        surbtc = json.loads(response.read())
+        break
+    except:
+        pass
 
-surbtc = json.loads(response.read())
-
+if surbtc is None:
+    import sys
+    sys.exit(-1)
 
 ''' Calculos '''
 usd = kraken['result']['XXBTZUSD']['c'][0]
@@ -59,5 +75,5 @@ print '=',
 print intWithCommas(int(clp)), '-', ('%.2f' % (usd)).replace('.', ','), '* 670',
 print '= $' + intWithCommas(clp_diff),
 
-
 print '->', '%%%.2f' % (100*clp_diff / (usd * 670))
+
