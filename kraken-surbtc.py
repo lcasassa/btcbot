@@ -52,6 +52,8 @@ def intWithCommas(x):
         result = ".%03d%s" % (r, result)
     return "%d%s" % (x, result)
 
+import datetime
+print str(datetime.datetime.now()).split(".")[0],
 print 'clp - usd * 670',
 print '=',
 print intWithCommas(int(clp)), '-', ('%.2f' % (usd)).replace('.', ','), '* 670',
