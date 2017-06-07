@@ -1,4 +1,7 @@
 import pandas as pd
+import matplotlib
+# Force matplotlib to not use any Xwindows backend.
+matplotlib.use('Agg')
 from matplotlib import pyplot as plt
 
 data = pd.read_csv('btcbot.log', sep=" ", header=None, names=['date', 'time', 'clp', '-', 'usd', '*', 'usdclp', '=', 'clpdiff', '->', 'p'])
