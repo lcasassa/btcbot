@@ -2,6 +2,9 @@
 import httplib
 import urllib
 import json
+from usdclp import usdclp
+
+usd_clp = usdclp()
 
 ''' kraken '''
 kraken = None
@@ -49,7 +52,7 @@ clp = surbtc['ticker']['last_price'][0]
 usd = float(usd)
 clp = float(clp)
 
-clp_diff = clp - usd*670
+clp_diff = clp - usd*usd_clp
 clp_diff = int(clp_diff)
 
 ''' prints '''
@@ -70,8 +73,8 @@ def intWithCommas(x):
 
 import datetime
 print str(datetime.datetime.now()).split(".")[0],
-print intWithCommas(int(clp)), '-', ('%.2f' % (usd)).replace('.', ','), '* 670',
+print intWithCommas(int(clp)), '-', ('%.2f' % (usd)).replace('.', ','), '*', usd_clp,
 print '= $' + intWithCommas(clp_diff),
 
-print '->', '%.2f%%' % (100*clp_diff / (usd * 670))
+print '->', '%.2f%%' % (100*clp_diff / (usd * usd_clp))
 
