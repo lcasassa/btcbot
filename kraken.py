@@ -4,13 +4,13 @@ import krakenex
 try:
     import config
 except ImportError:
-    print 'copy config.py.example to config.py'
     import sys
+    print >> sys.stderr, 'copy config.py.example to config.py'
     sys.exit(1)
 
 if config.kraken_api_key == '' or config.kraken_private_key == '':
-    print 'Please set kraken_api_key and kraken_private_key in config.py'
     import sys
+    print >> sys.stderr, 'Please set kraken_api_key and kraken_private_key in config.py'
     sys.exit(1)
 
 api = krakenex.API(config.kraken_api_key, config.kraken_private_key)

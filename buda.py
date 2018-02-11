@@ -4,13 +4,13 @@ import surbtc
 try:
     import config
 except ImportError:
-    print 'copy config.py.example to config.py'
     import sys
+    print >> sys.stderr, 'copy config.py.example to config.py'
     sys.exit(1)
 
 if config.buda_llave == '' or config.buda_secreto == '':
-    print 'Please set buda_llave and buda_secreto in config.py'
     import sys
+    print >> sys.stderr, 'Please set buda_llave and buda_secreto in config.py'
     sys.exit(1)
 
 client = surbtc.Client(config.buda_llave, config.buda_secreto)
