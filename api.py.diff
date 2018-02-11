@@ -1,0 +1,22 @@
+diff --git a/api.py b/api.py
+index 0cc5587..b5177b2 100644
+--- a/api.py
++++ b/api.py
+@@ -23,7 +23,7 @@ import requests
+ import time
+ 
+ # private query signing
+-import urllib.parse
++import urllib
+ import hashlib
+ import hmac
+ import base64
+@@ -185,7 +185,7 @@ class API(object):
+         :type urlpath: str
+         :returns: signature digest
+         """
+-        postdata = urllib.parse.urlencode(data)
++        postdata = urllib.urlencode(data)
+ 
+         # Unicode-objects must be encoded before hashing
+         encoded = (str(data['nonce']) + postdata).encode()
