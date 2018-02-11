@@ -1,23 +1,18 @@
-import sys
+from labstack import Client, APIError
+import config
 
-if sys.version_info >= (3, 0):
-    from urllib.request import urlopen
-else:
-    from urllib2 import urlopen
+if config.labstack_accound_id == '' or config.labstack_api_key == '':
+    print 'Please set up labstack_accound_id and labstack_api_key in config.py'
 
-import re
+client = Client(config.labstack_accound_id, config.labstack_api_key)
+
 
 def usdclp():
-    # get html
-    response = urlopen('https://www.google.com/finance/converter?a=1&from=USD&to=CLP')
-    html = response.read()
+    try:
+        response = client.currency_convert(base='USD')
+    except APIError as error:
+        print(error)
 
-    # parse html
-    m = re.search('<div id=currency_converter_result>1 USD = <span class=bld>(?P<clp>[-+]?\d*\.\d+|\d+) CLP<\/span>', str(html))
-    usd_clp_str = m.group('clp')
-
-    # str to float
-    usd_clp = float(usd_clp_str)
+    usd_clp = float(response['rates']['CLP'])
 
     return usd_clp
-

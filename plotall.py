@@ -1,19 +1,23 @@
-import pandas as pd
+
+import pandas as pd # Version 0.21.0
 import matplotlib
-# Force matplotlib to not use any Xwindows backend.
-matplotlib.use('Agg')
+matplotlib.use('Agg') # Force matplotlib to not use any Xwindows backend.
 from matplotlib import pyplot as plt
 
-data = pd.read_csv('btcbot.log', sep=" ", header=None, names=['date', 'time', 'clp', '-', 'usd', '*', 'usdclp', '=', 'clpdiff', '->', 'p'])
-date = pd.to_datetime(data['date'] + ' ' + data['time'], format='%Y-%m-%d %H:%M:%S')
-p = data['p'].replace('%','',regex=True).astype('float')/100
+filename = 'btcbot.log'
+df = pd.read_json(filename, lines=True)
+date = pd.to_datetime(df['date'], format='%Y-%m-%d %H:%M:%S')
 
-fig, ax = plt.subplots(1)
-ax.plot(date, p)
+if 1:
 
-fig.autofmt_xdate()
-import matplotlib.dates as mdates
-#ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d %H:%M:%S'))
-ax.xaxis.set_major_formatter(mdates.DateFormatter('%m/%d %H:%M'))
+    #p = data['p'].replace('%','',regex=True).astype('float')/100
 
-plt.savefig('plot.png')
+    fig, ax = plt.subplots(1)
+    ax.plot(date, df['p_kb']*100, '.', date, df['p_bk']*100, '.')
+
+    fig.autofmt_xdate()
+    import matplotlib.dates as mdates
+    #ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d %H:%M:%S'))
+    ax.xaxis.set_major_formatter(mdates.DateFormatter('%m/%d %H:%M'))
+
+    plt.savefig('plot.png')
