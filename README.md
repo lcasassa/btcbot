@@ -1,4 +1,10 @@
 # btcbot
+## Config
+```
+cp config.py.example config.py
+```
+Edit config.py with keys from: https://www.buda.com/ https://www.kraken.com/ https://labstack.com/
+
 ## Run
 ```
 make
