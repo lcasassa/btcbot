@@ -13,10 +13,11 @@ open plot.png
 ### On Ubuntu
 ```
 make install_requirements_ubuntu
+make kraken_fix_ubuntu
 ```
 
 ### On Mac
 ```
 make install_requirements
-make kraken_mac_fix
+make kraken_fix_mac
 ```
