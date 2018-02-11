@@ -1,9 +1,17 @@
 from pprint import pprint as pp
 import krakenex
-import config
+
+try:
+    import config
+except ImportError:
+    print 'copy config.py.example to config.py'
+    import sys
+    sys.exit(1)
 
 if config.kraken_api_key == '' or config.kraken_private_key == '':
-    print 'Please set up kraken_api_key and kraken_private_key in config.py'
+    print 'Please set kraken_api_key and kraken_private_key in config.py'
+    import sys
+    sys.exit(1)
 
 api = krakenex.API(config.kraken_api_key, config.kraken_private_key)
 

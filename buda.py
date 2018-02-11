@@ -1,9 +1,17 @@
 from pprint import pprint as pp
 import surbtc
-import config
+
+try:
+    import config
+except ImportError:
+    print 'copy config.py.example to config.py'
+    import sys
+    sys.exit(1)
 
 if config.buda_llave == '' or config.buda_secreto == '':
-    print 'Please set up buda_llave and buda_secreto in config.py'
+    print 'Please set buda_llave and buda_secreto in config.py'
+    import sys
+    sys.exit(1)
 
 client = surbtc.Client(config.buda_llave, config.buda_secreto)
 market = surbtc.Market('btc-clp', client)
