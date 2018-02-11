@@ -1,20 +1,22 @@
 # btcbot
+## Run
 ```
-make install_requirements
 make
+```
+## Plot
+```
 make plot
 open plot.png
 ```
 
-### On Mac
-If you see:
+## Install
+### On Ubuntu
 ```
-  File "/Users/lcasassa/Library/Python/2.7/lib/python/site-packages/krakenex/api.py", line 26, in <module>
-    import urllib.parse
-ImportError: No module named parse
-```
-do:
+make install_requirements_ubuntu
 ```
 
+### On Mac
+```
+make install_requirements
 make kraken_mac_fix
 ```
