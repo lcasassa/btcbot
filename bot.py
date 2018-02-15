@@ -48,8 +48,8 @@ from pprint import pprint as pp
 p_kb = (b['bid']['btc']/u - k['ask']['btc']) / (b['bid']['btc']/u)
 p_bk = (k['bid']['btc'] - b['ask']['btc']/u) / (b['bid']['btc']/u)
 
-p_kbc = (bc['bid']['btc']/c - k['ask']['btc']) / (bc['bid']['btc']/c)
-p_bck = (k['bid']['btc'] - bc['ask']['btc']/c) / (bc['bid']['btc']/c)
+p_kbc = (b['bid']['btc']/c - bc['ask']['btc']) / (b['bid']['btc']/c)
+p_bck = (bc['bid']['btc'] - b['ask']['btc']/c) / (b['bid']['btc']/c)
 
 #import math
 #pp({'usd -> btc | btc -> clp': math.floor(p_kb*100*100)/100})
