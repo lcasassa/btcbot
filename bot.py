@@ -1,9 +1,14 @@
-import buda
-import buda_cop
-import kraken
-import usdclp
-import copclp
-import datetime
+try:
+    import buda
+    import buda_cop
+    import kraken
+    import usdclp
+    import copclp
+    import datetime
+except Exception as e:
+    import sys
+    print >> sys.stderr, e
+    sys.exit(1)
 
 fetch = True
 if fetch:
@@ -17,7 +22,7 @@ if fetch:
         k = kraken.bidask()
         u = usdclp.usdclp()
         c = copclp.copclp()
-    except e:
+    except Exception as e:
         import sys
         print >> sys.stderr, e
         sys.exit(1)
