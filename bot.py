@@ -8,14 +8,19 @@ import datetime
 fetch = True
 if fetch:
     date = str(datetime.datetime.now()).split(".")[0]
-    sb = buda.saldo()
-    sbc = buda_cop.saldo()
-    sk = kraken.saldo()
-    b = buda.bidask()
-    bc = buda_cop.bidask()
-    k = kraken.bidask()
-    u = usdclp.usdclp()
-    c = copclp.copclp()
+    try:
+        sb = buda.saldo()
+        sbc = buda_cop.saldo()
+        sk = kraken.saldo()
+        b = buda.bidask()
+        bc = buda_cop.bidask()
+        k = kraken.bidask()
+        u = usdclp.usdclp()
+        c = copclp.copclp()
+    except e:
+        import sys
+        print >> sys.stderr, e
+        sys.exit(1)
 else:
     date = '2018-02-10 23:20:27'
     sb = {'btc': 0.0, 'clp': 0.45}
