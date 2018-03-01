@@ -13,7 +13,7 @@ if 1:
     #p = data['p'].replace('%','',regex=True).astype('float')/100
 
     fig, ax = plt.subplots(1)
-    ax.plot(date, df['p_kb']*100, '.', date, df['p_bk']*100, '.', date, df['p_kbc']*100, '*', date, df['p_bck']*100, '*')
+    ax.plot(date, df['p_kb']*100, '.', date, df['p_bk']*100, '.', date, df['p_bbc']*100, '*', date, df['p_bcb']*100, '*')
 
     fig.autofmt_xdate()
     import matplotlib.dates as mdates

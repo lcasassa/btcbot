@@ -48,12 +48,12 @@ from pprint import pprint as pp
 p_kb = (b['bid']['btc']/u - k['ask']['btc']) / (b['bid']['btc']/u)
 p_bk = (k['bid']['btc'] - b['ask']['btc']/u) / (b['bid']['btc']/u)
 
-p_kbc = (b['bid']['btc']/c - bc['ask']['btc']) / (b['bid']['btc']/c)
-p_bck = (bc['bid']['btc'] - b['ask']['btc']/c) / (b['bid']['btc']/c)
+p_bbc = (b['bid']['btc']/c - bc['ask']['btc']) / (b['bid']['btc']/c)
+p_bcb = (bc['bid']['btc'] - b['ask']['btc']/c) / (b['bid']['btc']/c)
 
 #import math
 #pp({'usd -> btc | btc -> clp': math.floor(p_kb*100*100)/100})
 #pp({'clp -> btc | btc -> usd': math.floor(p_bk*100*100)/100})
 
 import json
-print(json.dumps({'date': date, 'sb': sb, 'sbc': sbc, 'sk': sk, 'b': b, 'bc': bc, 'c': c, 'k':k, 'u': u, 'p_kb': p_kb, 'p_bk': p_bk, 'p_kbc': p_kbc, 'p_bck': p_bck}))
+print(json.dumps({'date': date, 'sb': sb, 'sbc': sbc, 'sk': sk, 'b': b, 'bc': bc, 'c': c, 'k':k, 'u': u, 'p_kb': p_kb, 'p_bk': p_bk, 'p_bbc': p_bbc, 'p_bcb': p_bcb}))
