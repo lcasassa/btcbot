@@ -1,5 +1,6 @@
 try:
     import sys
+    import time
     import json
     import buda
     import buda_cop
@@ -11,85 +12,87 @@ except Exception as e:
     print >> sys.stderr, e
     sys.exit(1)
 
-fetch = True
-if fetch:
-    date = str(datetime.datetime.now()).split(".")[0]
-    try:
-        sb = buda.saldo()
-        sbc = buda_cop.saldo()
-        sk = kraken.saldo()
-        b = buda.bidask()
-        bc = buda_cop.bidask()
-        k = kraken.bidask()
-        u = usdclp.usdclp()
-        c = copclp.copclp()
-    except Exception as e:
-        print >> sys.stderr, e
-        sys.exit(1)
-else:
-    date = '2018-02-10 23:20:27'
-    sb = {'btc': 0.0, 'clp': 0.45}
-    sbc = {'btc': 0.0, 'cop': 0.46}
-    sk = {'btc': 0.03690466, 'usd': 0}
-    b = {'ask': {'btc': 5273580.0, 'vol': 0.25777186}, 'bid': {'btc': 5190001.0, 'vol': 0.0871033}}
-    k = {'ask': {'btc': 8275.3, 'vol': 4.0}, 'bid': {'btc': 8258.0, 'vol': 0.6}}
-    u = 604.8
-    c = 123.5
+while True:
+    fetch = True
+    if fetch:
+        date = str(datetime.datetime.now()).split(".")[0]
+        try:
+            sb = buda.saldo()
+            sbc = buda_cop.saldo()
+            sk = kraken.saldo()
+            b = buda.bidask()
+            bc = buda_cop.bidask()
+            k = kraken.bidask()
+            u = usdclp.usdclp()
+            c = copclp.copclp()
+        except Exception as e:
+            print >> sys.stderr, e
+            sys.exit(1)
+    else:
+        date = '2018-02-10 23:20:27'
+        sb = {'btc': 0.0, 'clp': 0.45}
+        sbc = {'btc': 0.0, 'cop': 0.46}
+        sk = {'btc': 0.03690466, 'usd': 0}
+        b = {'ask': {'btc': 5273580.0, 'vol': 0.25777186}, 'bid': {'btc': 5190001.0, 'vol': 0.0871033}}
+        k = {'ask': {'btc': 8275.3, 'vol': 4.0}, 'bid': {'btc': 8258.0, 'vol': 0.6}}
+        u = 604.8
+        c = 123.5
 
 
-from pprint import pprint as pp
+    from pprint import pprint as pp
 
-#pp({'Saldo Buda': sb})
-#pp({'Saldo Kraken': sk})
-#pp({'Ordenes Buda': b})
-#pp({'Ordenes Kraken': k})
-#pp({'CLP/USD': u})
+    #pp({'Saldo Buda': sb})
+    #pp({'Saldo Kraken': sk})
+    #pp({'Ordenes Buda': b})
+    #pp({'Ordenes Kraken': k})
+    #pp({'CLP/USD': u})
 
-p_kb = (b['bid']['btc']/u - k['ask']['btc']) / (b['bid']['btc']/u)
-p_bk = (k['bid']['btc'] - b['ask']['btc']/u) / (b['bid']['btc']/u)
+    p_kb = (b['bid']['btc']/u - k['ask']['btc']) / (b['bid']['btc']/u)
+    p_bk = (k['bid']['btc'] - b['ask']['btc']/u) / (b['bid']['btc']/u)
 
-p_bbc = (b['bid']['btc']/c - bc['ask']['btc']) / (b['bid']['btc']/c)
-p_bcb = (bc['bid']['btc'] - b['ask']['btc']/c) / (b['bid']['btc']/c)
+    p_bbc = (b['bid']['btc']/c - bc['ask']['btc']) / (b['bid']['btc']/c)
+    p_bcb = (bc['bid']['btc'] - b['ask']['btc']/c) / (b['bid']['btc']/c)
 
-#import math
-#pp({'usd -> btc | btc -> clp': math.floor(p_kb*100*100)/100})
-#pp({'clp -> btc | btc -> usd': math.floor(p_bk*100*100)/100})
+    #import math
+    #pp({'usd -> btc | btc -> clp': math.floor(p_kb*100*100)/100})
+    #pp({'clp -> btc | btc -> usd': math.floor(p_bk*100*100)/100})
 
-r = {'date': date, 'sb': sb, 'sbc': sbc, 'sk': sk, 'b': b, 'bc': bc, 'c': c, 'k': k, 'u': u, 'p_kb': p_kb, 'p_bk': p_bk, 'p_bbc': p_bbc, 'p_bcb': p_bcb, 'total': int(sb['clp'] + sbc['cop']*c)}
+    r = {'date': date, 'sb': sb, 'sbc': sbc, 'sk': sk, 'b': b, 'bc': bc, 'c': c, 'k': k, 'u': u, 'p_kb': p_kb, 'p_bk': p_bk, 'p_bbc': p_bbc, 'p_bcb': p_bcb, 'total': int(sb['clp'] + sbc['cop']*c)}
 
-r.update({'ask_b': 0, 'bid_bc': 0})
-if p_bbc > 13/100.0:
-    v = min(b['bid']['vol'], bc['ask']['vol'], 0.001, sb['clp']/b['ask']['btc'])
-    p = p_bbc
+    r.update({'ask_b': 0, 'bid_bc': 0})
+    if p_bbc > 13/100.0:
+        v = min(b['bid']['vol'], bc['ask']['vol'], 0.001, sb['clp']/b['ask']['btc'])
+        p = p_bbc
 
-    if v > 0.0005:
-        print >> sys.stderr, '++++++ v =', v, 'p =', p*100.0, 'total = ', r['total']
+        if v > 0.0005:
+            print >> sys.stderr, '++++++ v =', v, 'p =', p*100.0, 'total = ', r['total']
 
-        buda.oc(v, b['ask']['btc'])
-        buda_cop.ov(v, bc['bid']['btc'])
+            buda.oc(v, b['ask']['btc'])
+            buda_cop.ov(v, bc['bid']['btc'])
 
-        r.update({'v': -v, 'p': p, 'ask_b': b['ask']['btc'], 'bid_bc': bc['bid']['btc']})
+            r.update({'v': -v, 'p': p, 'ask_b': b['ask']['btc'], 'bid_bc': bc['bid']['btc']})
 
-r.update({'ask_bc': 0, 'bid_b': 0})
-if p_bcb > -11/100.0:
-    v = min(bc['bid']['vol'], b['ask']['vol'], 0.001, sbc['cop']/bc['ask']['btc'])
-    p = p_bcb
-    if v > 0.0005:
-        print >> sys.stderr, '------ v =', v, 'p =', p*100.0, 'total = ', r['total']
+    r.update({'ask_bc': 0, 'bid_b': 0})
+    if p_bcb > -11/100.0:
+        v = min(bc['bid']['vol'], b['ask']['vol'], 0.001, sbc['cop']/bc['ask']['btc'])
+        p = p_bcb
+        if v > 0.0005:
+            print >> sys.stderr, '------ v =', v, 'p =', p*100.0, 'total = ', r['total']
 
-        buda_cop.oc(v, bc['ask']['btc'])
-        buda.ov(v, b['bid']['btc'])
+            buda_cop.oc(v, bc['ask']['btc'])
+            buda.ov(v, b['bid']['btc'])
 
-        r.update({'v': v, 'p': p, 'ask_bc': bc['ask']['btc'], 'bid_b': b['bid']['btc']})
+            r.update({'v': v, 'p': p, 'ask_bc': bc['ask']['btc'], 'bid_b': b['bid']['btc']})
 
-if 'v' not in r:
-    r['v'] = 0
-    r['p'] = 0
+    if 'v' not in r:
+        r['v'] = 0
+        r['p'] = 0
 
-    print >> sys.stderr, '       v =', r['v'], 'p =', r['p']*100.0, 'total = ', r['total']
+        print >> sys.stderr, '       v =', r['v'], 'p =', r['p']*100.0, 'total = ', r['total']
 
-print(json.dumps(r))
+    print(json.dumps(r))
 
-#if r['v'] != 0:
-#    import time
-#    time.sleep(60)
+    #if r['v'] != 0:
+    #    time.sleep(60)
+
+    time.sleep(2)
