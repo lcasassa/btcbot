@@ -9,8 +9,9 @@ df = pd.read_json(filename, lines=True)
 date = pd.to_datetime(df['date'], format='%Y-%m-%d %H:%M:%S')
 
 if 1:
-
+    my_dpi = 96
     #p = data['p'].replace('%','',regex=True).astype('float')/100
+    plt.figure(figsize=(800 / my_dpi, 800 / my_dpi), dpi=my_dpi)
 
     fig, (ax1, ax2) = plt.subplots(2, 1, sharex=True)
     line1, = ax1.plot(date, df['p_kb']*100, '.', label='p_kb')
@@ -26,4 +27,4 @@ if 1:
     #ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d %H:%M:%S'))
     ax1.xaxis.set_major_formatter(mdates.DateFormatter('%m/%d %H:%M'))
 
-    plt.savefig('plot.png')
+    plt.savefig('plot.png', dpi=my_dpi*2)
