@@ -67,7 +67,7 @@ if p_bbc > 15/100.0:
 else:
     r.update({'ask_b': 0, 'bid_bc': 0})
 
-if p_bcb < -10/100.0:
+if p_bcb > -10/100.0:
     v = min(bc['bid']['vol'], b['ask']['vol'])
     #buda_cop.oc(v, bc['ask']['btc'])
     #buda.ov(v, b['bid']['btc'])
