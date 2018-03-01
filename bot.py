@@ -62,7 +62,7 @@ while True:
 
     r.update({'ask_bc': 0, 'bid_b': 0})
     if p_bcb > 13/100.0:
-        v = min(b['bid']['vol'], bc['ask']['vol'], 0.001, sb['clp']/b['ask']['clp'])
+        v = min(b['bid']['vol'], bc['ask']['vol'], 0.001, sb['cop']/bc['ask']['cop'])
         p = p_bcb
 
         if v > 0.0005:
@@ -76,7 +76,7 @@ while True:
 
     r.update({'ask_b': 0, 'bid_bc': 0})
     if p_bbc > -11/100.0:
-        v = min(bc['bid']['vol'], b['ask']['vol'], 0.001, sbc['cop']/bc['ask']['cop'])
+        v = min(bc['bid']['vol'], b['ask']['vol'], 0.001, sbc['clp']/b['ask']['clp'])
         p = p_bbc
         if v > 0.0005:
             print >> sys.stderr, '------ v =', v, 'p =', p*100.0, 'total = ', r['total'], datetime.datetime.now()
