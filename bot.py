@@ -87,12 +87,10 @@ if 'v' not in r:
     r['v'] = 0
     r['p'] = 0
 
-    print >> sys.stderr, '****** v =', r['v'], 'p =', r['p']
+    print >> sys.stderr, '       v =', r['v'], 'p =', r['p']
 
 print(json.dumps(r))
 
 if r['v'] != 0:
     import time
     time.sleep(60)
-else:
-    print >> sys.stderr, 'v =', r['v'], 'p =', r['p']
