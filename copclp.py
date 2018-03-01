@@ -1,15 +1,14 @@
+import sys
 import requests
 from datetime import datetime, timedelta
 
 try:
     import config
 except ImportError:
-    import sys
     print >> sys.stderr, 'copy config.py.example to config.py'
     sys.exit(1)
 
 if config.apilayer_api_key == '':
-    import sys
     print >> sys.stderr, 'Please set apilayer_api_key in config.py'
     sys.exit(1)
 
