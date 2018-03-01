@@ -66,6 +66,7 @@ while True:
 
         if v > 0.0005:
             print >> sys.stderr, '++++++ v =', v, 'p =', p*100.0, 'total = ', r['total']
+            sys.stderr.flush()
 
             buda.oc(v, b['ask']['btc'])
             buda_cop.ov(v, bc['bid']['btc'])
@@ -78,6 +79,7 @@ while True:
         p = p_bcb
         if v > 0.0005:
             print >> sys.stderr, '------ v =', v, 'p =', p*100.0, 'total = ', r['total']
+            sys.stderr.flush()
 
             buda_cop.oc(v, bc['ask']['btc'])
             buda.ov(v, b['bid']['btc'])
@@ -89,8 +91,10 @@ while True:
         r['p'] = 0
 
         print >> sys.stderr, '       v =', r['v'], 'p =', r['p']*100.0, 'total = ', r['total']
+        sys.stderr.flush()
 
     print(json.dumps(r))
+    sys.stdout.flush()
 
     #if r['v'] != 0:
     #    time.sleep(60)
