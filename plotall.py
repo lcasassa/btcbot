@@ -1,12 +1,13 @@
 
 import pandas as pd # Version 0.21.0
 import matplotlib
+from datetime import timedelta
 matplotlib.use('Agg') # Force matplotlib to not use any Xwindows backend.
 from matplotlib import pyplot as plt
 
 filename = 'btcbot.log'
 df = pd.read_json(filename, lines=True)
-date = pd.to_datetime(df['date'], format='%Y-%m-%d %H:%M:%S')
+date = pd.to_datetime(df['date'], format='%Y-%m-%d %H:%M:%S') - timedelta(hours=-3)
 
 if 1:
     my_dpi = 96
