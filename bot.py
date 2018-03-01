@@ -85,3 +85,5 @@ if r['v'] != 0:
     print >> sys.stderr, '****** v=', v
     import time
     time.sleep(60)
+else:
+    print >> sys.stderr, 'v=', v
