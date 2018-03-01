@@ -38,8 +38,18 @@ def saldo():
 
 
 def oc(vol, btc):
-    return client.createOrder('btc-clp', 'Bid', vol, btc, 'limit')
+    o = client.createOrder('btc-clp', 'Bid', vol, btc, 'limit')
+    o_id = o['id']
+    os = client.getOrder(o_id)
+    while os['state'] != 'traded':
+        os = client.getOrder(o_id)
+    return os
 
 
 def ov(vol, btc):
-    return client.createOrder('btc-clp', 'Ask', vol, btc, 'limit')
+    o = client.createOrder('btc-clp', 'Ask', vol, btc, 'limit')
+    o_id = o['id']
+    os = client.getOrder(o_id)
+    while os['state'] != 'traded':
+        os = client.getOrder(o_id)
+    return os
