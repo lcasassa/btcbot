@@ -61,7 +61,7 @@ if p_bbc > 15/100.0: # 9.3
     v = min(b['bid']['vol'], bc['ask']['vol'], 0.001, sb['clp']/b['ask']['btc'])
     p = p_bbc
 
-    print >> sys.stderr, '++++++ v =', v, 'p =', p*100.0
+    print >> sys.stderr, '++++++ v =', v, 'p =', p*100.0, 'total = ', sb['clp'] + sbc['cop']*c
 
     buda.oc(v, b['ask']['btc'])
     buda_cop.ov(v, bc['bid']['btc'])
@@ -74,7 +74,7 @@ if p_bcb > -10/100.0: # -15.1
     v = min(bc['bid']['vol'], b['ask']['vol'], 0.001, sbc['cop']/bc['ask']['btc'])
     p = p_bcb
 
-    print >> sys.stderr, '------ v =', v, 'p =', p*100.0
+    print >> sys.stderr, '------ v =', v, 'p =', p*100.0, 'total = ', sb['clp'] + sbc['cop']*c
 
     buda_cop.oc(v, bc['ask']['btc'])
     buda.ov(v, b['bid']['btc'])
@@ -87,7 +87,7 @@ if 'v' not in r:
     r['v'] = 0
     r['p'] = 0
 
-    print >> sys.stderr, '       v =', r['v'], 'p =', r['p']*100.0
+    print >> sys.stderr, '       v =', r['v'], 'p =', r['p']*100.0, 'total = ', sb['clp'] + sbc['cop']*c
 
 print(json.dumps(r))
 
