@@ -49,10 +49,10 @@ while True:
     #pp({'CLP/USD': u})
 
     p_kb = (k['ask']['usd'] - b['bid']['clp']/u) / (b['bid']['clp']/u)
-    p_bk = (k['bid']['usd'] - b['ask']['clp']/u) / (b['bid']['clp']/u)
+    p_bk = (b['ask']['clp']/u - k['bid']['usd']) / (b['bid']['clp']/u)
 
     p_bbc = (bc['ask']['cop'] - b['bid']['clp']/c) / (b['bid']['clp']/c)
-    p_bcb = (bc['bid']['cop'] - b['ask']['clp']/c) / (b['bid']['clp']/c)
+    p_bcb = (b['ask']['clp']/c - bc['bid']['cop']) / (b['bid']['clp']/c)
 
     #import math
     #pp({'usd -> btc | btc -> clp': math.floor(p_kb*100*100)/100})
@@ -62,7 +62,7 @@ while True:
 
     r.update({'ask_bc': 0, 'bid_b': 0})
     if p_bcb > 13/100.0:
-        v = min(b['bid']['vol'], bc['ask']['vol'], 0.001, sb['clp']/b['ask']['btc'])
+        v = min(b['bid']['vol'], bc['ask']['vol'], 0.001, sb['clp']/b['ask']['clp'])
         p = p_bcb
 
         if v > 0.0005:
