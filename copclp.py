@@ -29,7 +29,7 @@ def copclp():
             print(error)
             raise error
 
-        cop_clp = float(r['quotes']['USDCOP']) / float(r['quotes']['USDCLP'])
+        cop_clp = float(r['quotes']['USDCLP']) / float(r['quotes']['USDCOP'])
         cache = cop_clp
     else:
         cop_clp = cache
