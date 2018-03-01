@@ -1,6 +1,7 @@
 from pprint import pprint as pp
 import surbtc
 from requests.exceptions import ConnectionError
+import sys
 
 try:
     import config
