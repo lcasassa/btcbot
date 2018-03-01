@@ -90,6 +90,6 @@ if 'v' not in r:
 
 print(json.dumps(r))
 
-if r['v'] != 0:
-    import time
-    time.sleep(60)
+#if r['v'] != 0:
+#    import time
+#    time.sleep(60)
