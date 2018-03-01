@@ -32,6 +32,7 @@ def copclp():
 
         cop_clp = float(r['quotes']['USDCLP']) / float(r['quotes']['USDCOP'])
         cache = cop_clp
+        last = datetime.now()
     else:
         cop_clp = cache
 

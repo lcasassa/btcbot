@@ -32,6 +32,7 @@ def usdclp():
 
         usd_clp = float(r['quotes']['USDCLP'])
         cache = usd_clp
+        last = datetime.now()
     else:
         usd_clp = cache
 
