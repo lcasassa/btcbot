@@ -60,8 +60,8 @@ r = {'date': date, 'sb': sb, 'sbc': sbc, 'sk': sk, 'b': b, 'bc': bc, 'c': c, 'k'
 if p_bbc > 15/100.0:
     v = min(b['bid']['vol'], bc['ask']['vol'])
 
-    buda.oc(v, b['ask']['btc'])
-    buda_cop.ov(v, bc['bid']['btc'])
+    #buda.oc(v, b['ask']['btc'])
+    #buda_cop.ov(v, bc['bid']['btc'])
 
     r.update({'v': -v, 'ask_b': b['ask']['btc'], 'bid_bc': bc['bid']['btc']})
 else:
@@ -69,8 +69,8 @@ else:
 
 if p_bcb < 10/100.0:
     v = min(bc['bid']['vol'], b['ask']['vol'])
-    buda_cop.oc(v, bc['ask']['btc'])
-    buda.ov(v, b['bid']['btc'])
+    #buda_cop.oc(v, bc['ask']['btc'])
+    #buda.ov(v, b['bid']['btc'])
 
     r.update({'v': v, 'ask_bc': bc['ask']['btc'], 'bid_b': b['bid']['btc']})
 else:
