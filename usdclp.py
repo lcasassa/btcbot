@@ -21,7 +21,7 @@ cache = 0
 
 def usdclp():
     global cache, last
-    if datetime.now() - last > timedelta(hours=1):
+    if datetime.now() - last > timedelta(hours=1, minutes=30):
         try:
             payload = {"access_key": config.apilayer_api_key, "source": "USD", "currencies": "CLP", "format": "1"}
             r = requests.get('http://apilayer.net/api/live', params=payload)
