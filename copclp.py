@@ -1,4 +1,4 @@
-from labstack import Client, APIError
+import requests
 
 try:
     import config
@@ -7,20 +7,21 @@ except ImportError:
     print >> sys.stderr, 'copy config.py.example to config.py'
     sys.exit(1)
 
-if config.labstack_accound_id == '' or config.labstack_api_key == '':
+if config.apilayer_api_key == '':
     import sys
-    print >> sys.stderr, 'Please set labstack_accound_id and labstack_api_key in config.py'
+    print >> sys.stderr, 'Please set apilayer_api_key in config.py'
     sys.exit(1)
 
-client = Client(config.labstack_accound_id, config.labstack_api_key)
 
-
-def copclp():
+def usdcop():
     try:
-        response = client.currency_convert(base='COP')
-    except APIError as error:
+        payload={"access_key": config.apilayer_api_key, "source": "USD", "currencies": "CLP, COP", "format": "1"}
+        r = requests.get('http://apilayer.net/api/live', params=payload)
+
+    except Exception as error:
         print(error)
+        raise error
 
-    cop_clp = float(response['rates']['CLP'])
+    usd_cop = float(r.json()['quotes']['USDCOP'])
 
-    return cop_clp
+    return usd_cop
