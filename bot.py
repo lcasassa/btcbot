@@ -1,4 +1,6 @@
 try:
+    import sys
+    import json
     import buda
     import buda_cop
     import kraken
@@ -6,7 +8,6 @@ try:
     import copclp
     import datetime
 except Exception as e:
-    import sys
     print >> sys.stderr, e
     sys.exit(1)
 
@@ -23,7 +24,6 @@ if fetch:
         u = usdclp.usdclp()
         c = copclp.copclp()
     except Exception as e:
-        import sys
         print >> sys.stderr, e
         sys.exit(1)
 else:
@@ -79,5 +79,9 @@ else:
 if 'v' not in r:
     r['v'] = 0
 
-import json
 print(json.dumps(r))
+
+if r['v'] != 0:
+    print >> sys.stderr, '****** v=', v
+    import time
+    time.sleep(60)
