@@ -61,7 +61,7 @@ while True:
     r = {'date': date, 'sb': sb, 'sbc': sbc, 'sk': sk, 'b': b, 'bc': bc, 'c': c, 'k': k, 'u': u, 'p_kb': p_kb, 'p_bk': p_bk, 'p_bbc': p_bbc, 'p_bcb': p_bcb, 'total': int(sb['clp'] + sbc['cop']*c)}
 
     r.update({'ask_bc': 0, 'bid_b': 0})
-    if p_bcb > 13/100.0:
+    if p_bcb > 14.6/100.0:
         v = min(b['bid']['vol'], bc['ask']['vol'], 0.001, sbc['cop']/bc['ask']['cop'])
         p = p_bcb
 
@@ -69,21 +69,21 @@ while True:
             print >> sys.stderr, '++++++ v =', v, 'p =', p*100.0, 'total = ', r['total'], datetime.datetime.now()
             sys.stderr.flush()
 
-            #buda_cop.oc(v, bc['ask']['cop'])
-            #buda.ov(v, b['bid']['clp'])
+            buda_cop.oc(v, bc['ask']['cop'])
+            buda.ov(v, b['bid']['clp'])
 
             r.update({'v': -v, 'p': p, 'ask_bc': bc['ask']['cop'], 'bid_b': b['bid']['clp']})
 
     r.update({'ask_b': 0, 'bid_bc': 0})
-    if p_bbc > -11/100.0:
+    if p_bbc > -10/100.0:
         v = min(bc['bid']['vol'], b['ask']['vol'], 0.001, sb['clp']/b['ask']['clp'])
         p = p_bbc
         if v > 0.0005:
             print >> sys.stderr, '------ v =', v, 'p =', p*100.0, 'total = ', r['total'], datetime.datetime.now()
             sys.stderr.flush()
 
-            #buda.oc(v, b['ask']['clp'])
-            #buda_cop.ov(v, bc['bid']['cop'])
+            buda.oc(v, b['ask']['clp'])
+            buda_cop.ov(v, bc['bid']['cop'])
 
             r.update({'v': v, 'p': p, 'ask_b': b['ask']['clp'], 'bid_bc': bc['bid']['cop']})
 
