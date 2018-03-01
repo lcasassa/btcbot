@@ -82,8 +82,8 @@ if 'v' not in r:
 print(json.dumps(r))
 
 if r['v'] != 0:
-    print >> sys.stderr, '****** v=', v
+    print >> sys.stderr, '****** v=', r['v']
     import time
     time.sleep(60)
 else:
-    print >> sys.stderr, 'v=', v
+    print >> sys.stderr, 'v=', r['v']
