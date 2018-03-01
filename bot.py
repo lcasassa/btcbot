@@ -58,7 +58,7 @@ p_bcb = (bc['bid']['btc'] - b['ask']['btc']/c) / (b['bid']['btc']/c)
 r = {'date': date, 'sb': sb, 'sbc': sbc, 'sk': sk, 'b': b, 'bc': bc, 'c': c, 'k': k, 'u': u, 'p_kb': p_kb, 'p_bk': p_bk, 'p_bbc': p_bbc, 'p_bcb': p_bcb}
 
 if p_bbc > 15/100.0:
-    v = min(b['bid']['vol'], bc['ask']['vol'])
+    v = min(b['bid']['vol'], bc['ask']['vol'], 0.001)
 
     buda.oc(v, b['ask']['btc'])
     buda_cop.ov(v, bc['bid']['btc'])
@@ -68,7 +68,7 @@ else:
     r.update({'ask_b': 0, 'bid_bc': 0})
 
 if p_bcb > -10/100.0:
-    v = min(bc['bid']['vol'], b['ask']['vol'])
+    v = min(bc['bid']['vol'], b['ask']['vol'], 0.001)
     buda_cop.oc(v, bc['ask']['btc'])
     buda.ov(v, b['bid']['btc'])
 
