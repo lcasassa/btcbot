@@ -28,7 +28,7 @@ def bidask():
     asks = float(book['asks'][0][0])
     asks_volume = float(book['asks'][0][1])
 
-    return {'bid': {'btc': bids, 'vol': bids_volume}, 'ask': {'btc': asks, 'vol': asks_volume}}
+    return {'bid': {'cop': bids, 'vol': bids_volume}, 'ask': {'cop': asks, 'vol': asks_volume}}
 
 
 def saldo():

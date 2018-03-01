@@ -23,7 +23,7 @@ def bidask():
     bid_volume = float(book['result']['XXBTZUSD']['bids'][0][1])
     ask = float(book['result']['XXBTZUSD']['asks'][0][0])
     ask_volume = float(book['result']['XXBTZUSD']['asks'][0][1])
-    return {'bid': {'btc': bid, 'vol': bid_volume}, 'ask': {'btc': ask, 'vol': ask_volume}}
+    return {'bid': {'usd': bid, 'vol': bid_volume}, 'ask': {'usd': ask, 'vol': ask_volume}}
 
 
 def saldo():
