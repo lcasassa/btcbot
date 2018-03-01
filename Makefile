@@ -1,5 +1,5 @@
 run:
-	while true; do python bot.py 2> error.log | tee -a btcbot.log; sleep 10; done;
+	while true; do python bot.py 2>> error.log | tee -a btcbot.log; sleep 10; done;
 
 plot:
 	python plotall.py
