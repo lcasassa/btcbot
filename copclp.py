@@ -13,15 +13,16 @@ if config.apilayer_api_key == '':
     sys.exit(1)
 
 
-def usdcop():
+def copclp():
     try:
         payload={"access_key": config.apilayer_api_key, "source": "USD", "currencies": "CLP, COP", "format": "1"}
         r = requests.get('http://apilayer.net/api/live', params=payload)
+        r = r.json()
 
     except Exception as error:
         print(error)
         raise error
 
-    usd_cop = float(r.json()['quotes']['USDCOP'])
+    cop_clp = float(r['quotes']['USDCOP']) / float(r['quotes']['USDCLP'])
 
-    return usd_cop
+    return cop_clp
