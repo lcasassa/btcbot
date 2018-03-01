@@ -20,8 +20,6 @@ def copclp():
     global cache, last
     if datetime.now() - last > timedelta(hours=1, minutes=30):
         try:
-            print >> sys.stderr, 'asking for cop/clp'
-            sys.stderr.flush()
             payload = {"access_key": config.apilayer_api_key, "source": "USD", "currencies": "CLP, COP", "format": "1"}
             r = requests.get('http://apilayer.net/api/live', params=payload)
             r = r.json()
