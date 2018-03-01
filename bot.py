@@ -55,5 +55,29 @@ p_bcb = (bc['bid']['btc'] - b['ask']['btc']/c) / (b['bid']['btc']/c)
 #pp({'usd -> btc | btc -> clp': math.floor(p_kb*100*100)/100})
 #pp({'clp -> btc | btc -> usd': math.floor(p_bk*100*100)/100})
 
+r = {'date': date, 'sb': sb, 'sbc': sbc, 'sk': sk, 'b': b, 'bc': bc, 'c': c, 'k': k, 'u': u, 'p_kb': p_kb, 'p_bk': p_bk, 'p_bbc': p_bbc, 'p_bcb': p_bcb}
+
+if p_bbc > 15/100.0:
+    v = min(b['bid']['vol'], bc['ask']['vol'])
+
+    buda.oc(v, b['ask']['btc'])
+    buda_cop.ov(v, bc['bid']['btc'])
+
+    r.update({'v': -v, 'ask_b': b['ask']['btc'], 'bid_bc': bc['bid']['btc']})
+else:
+    r.update({'ask_b': 0, 'bid_bc': 0})
+
+if p_bcb < 10/100.0:
+    v = min(bc['bid']['vol'], b['ask']['vol'])
+    buda_cop.oc(v, bc['ask']['btc'])
+    buda.ov(v, b['bid']['btc'])
+
+    r.update({'v': v, 'ask_bc': bc['ask']['btc'], 'bid_b': b['bid']['btc']})
+else:
+    r.update({'ask_bc': 0, 'bid_b': 0})
+
+if 'v' not in r:
+    r['v'] = 0
+
 import json
-print(json.dumps({'date': date, 'sb': sb, 'sbc': sbc, 'sk': sk, 'b': b, 'bc': bc, 'c': c, 'k':k, 'u': u, 'p_kb': p_kb, 'p_bk': p_bk, 'p_bbc': p_bbc, 'p_bcb': p_bcb}))
+print(json.dumps(r))
