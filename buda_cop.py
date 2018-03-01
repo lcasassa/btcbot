@@ -35,3 +35,11 @@ def saldo():
     cop = float(client.getBalance('cop')['available_amount'][0])
     btc = float(client.getBalance('btc')['available_amount'][0])
     return {'cop': cop, 'btc': btc}
+
+
+def oc(vol, btc):
+    return client.createOrder('btc-cop', 'Bid', vol, btc, 'limit')
+
+
+def ov(vol, btc):
+    return client.createOrder('btc-cop', 'Ask', vol, btc, 'limit')

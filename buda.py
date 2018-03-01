@@ -35,3 +35,11 @@ def saldo():
     clp = float(client.getBalance('clp')['available_amount'][0])
     btc = float(client.getBalance('btc')['available_amount'][0])
     return {'clp': clp, 'btc': btc}
+
+
+def oc(vol, btc):
+    return client.createOrder('btc-clp', 'Bid', vol, btc, 'limit')
+
+
+def ov(vol, btc):
+    return client.createOrder('btc-clp', 'Ask', vol, btc, 'limit')
