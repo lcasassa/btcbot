@@ -58,7 +58,7 @@ p_bcb = (bc['bid']['btc'] - b['ask']['btc']/c) / (b['bid']['btc']/c)
 r = {'date': date, 'sb': sb, 'sbc': sbc, 'sk': sk, 'b': b, 'bc': bc, 'c': c, 'k': k, 'u': u, 'p_kb': p_kb, 'p_bk': p_bk, 'p_bbc': p_bbc, 'p_bcb': p_bcb, 'total': int(sb['clp'] + sbc['cop']*c)}
 
 r.update({'ask_b': 0, 'bid_bc': 0})
-if p_bbc > 15/100.0: # 9.3
+if p_bbc > 13/100.0:
     v = min(b['bid']['vol'], bc['ask']['vol'], 0.001, sb['clp']/b['ask']['btc'])
     p = p_bbc
 
@@ -71,7 +71,7 @@ if p_bbc > 15/100.0: # 9.3
         r.update({'v': -v, 'p': p, 'ask_b': b['ask']['btc'], 'bid_bc': bc['bid']['btc']})
 
 r.update({'ask_bc': 0, 'bid_b': 0})
-if p_bcb > -10/100.0: # -15.1
+if p_bcb > -11/100.0:
     v = min(bc['bid']['vol'], b['ask']['vol'], 0.001, sbc['cop']/bc['ask']['btc'])
     p = p_bcb
     if v > 0.0005:
