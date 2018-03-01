@@ -61,7 +61,7 @@ if p_bbc > 15/100.0: # 9.3
     v = min(b['bid']['vol'], bc['ask']['vol'], 0.001)
     p = p_bbc
 
-    print >> sys.stderr, '****** v =', v, 'p =', p
+    print >> sys.stderr, '++++++ v =', v, 'p =', p
 
     buda.oc(v, b['ask']['btc'])
     buda_cop.ov(v, bc['bid']['btc'])
@@ -87,7 +87,7 @@ if 'v' not in r:
     r['v'] = 0
     r['p'] = 0
 
-    print >> sys.stderr, '++++++ v =', r['v'], 'p =', r['p']
+    print >> sys.stderr, '****** v =', r['v'], 'p =', r['p']
 
 print(json.dumps(r))
 
