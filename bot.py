@@ -55,7 +55,7 @@ p_bcb = (bc['bid']['btc'] - b['ask']['btc']/c) / (b['bid']['btc']/c)
 #pp({'usd -> btc | btc -> clp': math.floor(p_kb*100*100)/100})
 #pp({'clp -> btc | btc -> usd': math.floor(p_bk*100*100)/100})
 
-r = {'date': date, 'sb': sb, 'sbc': sbc, 'sk': sk, 'b': b, 'bc': bc, 'c': c, 'k': k, 'u': u, 'p_kb': p_kb, 'p_bk': p_bk, 'p_bbc': p_bbc, 'p_bcb': p_bcb}
+r = {'date': date, 'sb': sb, 'sbc': sbc, 'sk': sk, 'b': b, 'bc': bc, 'c': c, 'k': k, 'u': u, 'p_kb': p_kb, 'p_bk': p_bk, 'p_bbc': p_bbc, 'p_bcb': p_bcb, 'total': int(sb['clp'] + sbc['cop']*c)}
 
 r.update({'ask_b': 0, 'bid_bc': 0})
 if p_bbc > 15/100.0: # 9.3
@@ -63,7 +63,7 @@ if p_bbc > 15/100.0: # 9.3
     p = p_bbc
 
     if v > 0.0005:
-        print >> sys.stderr, '++++++ v =', v, 'p =', p*100.0, 'total = ', int(sb['clp'] + sbc['cop']*c)
+        print >> sys.stderr, '++++++ v =', v, 'p =', p*100.0, 'total = ', r['total']
 
         buda.oc(v, b['ask']['btc'])
         buda_cop.ov(v, bc['bid']['btc'])
@@ -75,7 +75,7 @@ if p_bcb > -10/100.0: # -15.1
     v = min(bc['bid']['vol'], b['ask']['vol'], 0.001, sbc['cop']/bc['ask']['btc'])
     p = p_bcb
     if v > 0.0005:
-        print >> sys.stderr, '------ v =', v, 'p =', p*100.0, 'total = ', int(sb['clp'] + sbc['cop']*c)
+        print >> sys.stderr, '------ v =', v, 'p =', p*100.0, 'total = ', r['total']
 
         buda_cop.oc(v, bc['ask']['btc'])
         buda.ov(v, b['bid']['btc'])
@@ -86,7 +86,7 @@ if 'v' not in r:
     r['v'] = 0
     r['p'] = 0
 
-    print >> sys.stderr, '       v =', r['v'], 'p =', r['p']*100.0, 'total = ', int(sb['clp'] + sbc['cop']*c)
+    print >> sys.stderr, '       v =', r['v'], 'p =', r['p']*100.0, 'total = ', r['total']
 
 print(json.dumps(r))
 
