@@ -13,7 +13,11 @@ if 1:
     #p = data['p'].replace('%','',regex=True).astype('float')/100
 
     fig, ax = plt.subplots(1)
-    ax.plot(date, df['p_kb']*100, '.', date, df['p_bk']*100, '.', date, df['p_bbc']*100, '*', date, df['p_bcb']*100, '*')
+    line1, = ax.plot(date, df['p_kb']*100, '.', label='p_kb')
+    line2, = ax.plot(date, df['p_bk']*100, '.', label='p_bk')
+    line3, = ax.plot(date, df['p_bbc']*100, '*', label='p_bbc')
+    line4, = ax.plot(date, df['p_bcb']*100, '*', label='p_bcb')
+    plt.legend(handles=[line1, line2, line3, line4])
 
     fig.autofmt_xdate()
     import matplotlib.dates as mdates
