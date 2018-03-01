@@ -1,5 +1,6 @@
 from pprint import pprint as pp
 import surbtc
+from requests.exceptions import ConnectionError
 
 try:
     import config
@@ -38,7 +39,14 @@ def saldo():
 
 
 def oc(vol, btc):
-    o = client.createOrder('btc-cop', 'Bid', vol, btc, 'limit')
+    while True:
+        try:
+            o = client.createOrder('btc-cop', 'Bid', vol, btc, 'limit')
+            break
+        except ConnectionError as e:
+            print >> sys.stderr, "retry buda_cop.oc", str(e)
+            sys.stderr.flush()
+            continue
     o_id = o['id']
     os = client.getOrder(o_id)
     while os['state'] != 'traded':
@@ -47,7 +55,14 @@ def oc(vol, btc):
 
 
 def ov(vol, btc):
-    o = client.createOrder('btc-cop', 'Ask', vol, btc, 'limit')
+    while True:
+        try:
+            o = client.createOrder('btc-cop', 'Ask', vol, btc, 'limit')
+            break
+        except ConnectionError as e:
+            print >> sys.stderr, "retry buda_cop.ov", str(e)
+            sys.stderr.flush()
+            continue
     o_id = o['id']
     os = client.getOrder(o_id)
     while os['state'] != 'traded':
