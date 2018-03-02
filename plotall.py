@@ -7,7 +7,7 @@ from matplotlib import pyplot as plt
 
 filename = 'btcbot.log'
 df = pd.read_json(filename, lines=True)
-date = pd.to_datetime(df['date'], format='%Y-%m-%d %H:%M:%S') - timedelta(hours=-3)
+date = pd.to_datetime(df['date'], format='%Y-%m-%d %H:%M:%S', utc='America/Santiago')
 
 if 1:
     my_dpi = 96
