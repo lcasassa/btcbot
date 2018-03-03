@@ -52,6 +52,8 @@ def oc(vol, btc):
     os = client.getOrder(o_id)
     while os['state'] != 'traded':
         os = client.getOrder(o_id)
+        if os['state'] == 'canceled':
+            raise EnvironmentError("Orden" + str(o_id) + "cancelado por el usuario?")
     return os
 
 
@@ -68,4 +70,6 @@ def ov(vol, btc):
     os = client.getOrder(o_id)
     while os['state'] != 'traded':
         os = client.getOrder(o_id)
+        if os['state'] == 'canceled':
+            raise EnvironmentError("Orden" + str(o_id) + "cancelado por el usuario?")
     return os
