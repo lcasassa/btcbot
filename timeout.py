@@ -16,5 +16,5 @@ def set_timeout(timeout):
     signal.alarm(timeout)
 
 
-def stop_timeout(timeout):
+def stop_timeout():
     signal.alarm(0)
