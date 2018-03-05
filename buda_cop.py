@@ -1,7 +1,7 @@
 from pprint import pprint as pp
 import surbtc
 from requests.exceptions import ConnectionError
-import sys
+import timeout
 
 try:
     import config
@@ -39,37 +39,38 @@ def saldo():
     return {'cop': cop, 'btc': btc}
 
 
-def oc(vol, btc):
-    while True:
-        try:
-            o = client.createOrder('btc-cop', 'Bid', vol, btc, 'limit')
-            break
-        except ConnectionError as e:
-            print >> sys.stderr, "retry buda_cop.oc", str(e)
-            sys.stderr.flush()
-            continue
-    o_id = o['id']
-    os = client.getOrder(o_id)
-    while os['state'] != 'traded':
+def order(client, market, type, vol, btc):
+    o_id = None
+    try:
+        o = client.createOrder(market, type, vol, btc, 'limit')
+        o_id = o['id']
         os = client.getOrder(o_id)
+        timeout.set_timeout(10)
+        while os['state'] == 'pending':
+            os = client.getOrder(o_id)
+        timeout.stop_timeout()
         if os['state'] == 'canceled':
+            print >> sys.stderr, "Order Canceled by user?... order_id:", o_id, "market:", market, "type:", type, "vol:", vol, "btc:", btc
+            sys.stderr.flush()
             raise EnvironmentError("Orden" + str(o_id) + "cancelado por el usuario?")
+    except timeout.TimeoutError as e:
+        print >> sys.stderr, "Timeout... market:", market, "type:", type, "vol:", vol, "btc:", btc, str(e)
+        sys.stderr.flush()
+        raise e
+    except ConnectionError as e:
+        print >> sys.stderr, "Connection error... market:", market, "type:", type, "vol:", vol, "btc:", btc, str(e)
+        sys.stderr.flush()
+        raise e
+    finally:
+        if o_id is not None:
+            client.cancelOrder(o_id)
+
     return os
+
+
+def oc(vol, btc):
+    return order(client, 'btc-cop', 'Bid', vol, btc)
 
 
 def ov(vol, btc):
-    while True:
-        try:
-            o = client.createOrder('btc-cop', 'Ask', vol, btc, 'limit')
-            break
-        except ConnectionError as e:
-            print >> sys.stderr, "retry buda_cop.ov", str(e)
-            sys.stderr.flush()
-            continue
-    o_id = o['id']
-    os = client.getOrder(o_id)
-    while os['state'] != 'traded':
-        os = client.getOrder(o_id)
-        if os['state'] == 'canceled':
-            raise EnvironmentError("Orden" + str(o_id) + "cancelado por el usuario?")
-    return os
+    return order(client, 'btc-cop', 'Ask', vol, btc,)
