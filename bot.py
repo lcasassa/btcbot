@@ -51,8 +51,8 @@ while True:
     p_kb = (k['ask']['usd'] - b['bid']['clp']/u) / (b['bid']['clp']/u)
     p_bk = (b['ask']['clp']/u - k['bid']['usd']) / (b['bid']['clp']/u)
 
-    p_bbc = (bc['ask']['cop'] - b['bid']['clp']/c) / (b['bid']['clp']/c)
-    p_bcb = (b['ask']['clp']/c - bc['bid']['cop']) / (b['bid']['clp']/c)
+    p_bbc = (bc['bid']['cop']*c - b['ask']['clp']) / (b['ask']['clp'])
+    p_bcb = (b['bid']['clp']/c - bc['ask']['cop']) / (bc['ask']['cop'])
 
     #import math
     #pp({'usd -> btc | btc -> clp': math.floor(p_kb*100*100)/100})
