@@ -74,4 +74,4 @@ def oc(vol, btc):
 
 
 def ov(vol, btc):
-    return order(client, 'btc-cop', 'Ask', vol, btc,)
+    return order(client, 'btc-cop', 'Ask', vol, btc)
