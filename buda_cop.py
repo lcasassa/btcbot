@@ -2,6 +2,7 @@ from pprint import pprint as pp
 import surbtc
 from requests.exceptions import ConnectionError
 import timeout
+import sys
 
 try:
     import config
