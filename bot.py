@@ -81,7 +81,7 @@ while True:
             r.update({'v': -v, 'p': p, 'ask_bc': bc['ask']['cop'], 'bid_b': b['bid']['clp']})
 
     r.update({'ask_b': 0, 'bid_bc': 0})
-    if p_bbc > -10/100.0:
+    if p_bbc > -11/100.0:
         v = min(bc['bid']['vol'], b['ask']['vol'], 0.001, sb['clp']/b['ask']['clp'])
         p = p_bbc
         if v > 0.0005:
