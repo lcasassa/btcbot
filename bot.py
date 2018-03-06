@@ -54,6 +54,12 @@ while True:
     p_bbc = (bc['bid']['cop']*c - b['ask']['clp']) / (b['ask']['clp'])
     p_bcb = (b['bid']['clp']/c - bc['ask']['cop']) / (bc['ask']['cop'])
 
+    p_bbc *= 1 - 0.85/100.0
+    p_bcb *= 1 - 0.85/100.0
+
+    p_bbc *= 1 - 0.85/100.0
+    p_bcb *= 1 - 0.85/100.0
+
     #import math
     #pp({'usd -> btc | btc -> clp': math.floor(p_kb*100*100)/100})
     #pp({'clp -> btc | btc -> usd': math.floor(p_bk*100*100)/100})
@@ -61,7 +67,7 @@ while True:
     r = {'date': date, 'sb': sb, 'sbc': sbc, 'sk': sk, 'b': b, 'bc': bc, 'c': c, 'k': k, 'u': u, 'p_kb': p_kb, 'p_bk': p_bk, 'p_bbc': p_bbc, 'p_bcb': p_bcb, 'total': int(sb['clp'] + sbc['cop']*c)}
 
     r.update({'ask_bc': 0, 'bid_b': 0})
-    if p_bcb > 14.6/100.0:
+    if p_bcb > 14.0/100.0:
         v = min(b['bid']['vol'], bc['ask']['vol'], 0.001, sbc['cop']/bc['ask']['cop'])
         p = p_bcb
 
