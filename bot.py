@@ -88,8 +88,8 @@ while True:
             print >> sys.stderr, '------ v =', v, 'p =', p*100.0, 'total =', r['total'], datetime.datetime.now()
             sys.stderr.flush()
 
-            buda.oc(v, b['ask']['clp'])
-            buda_cop.ov(v, bc['bid']['cop'])
+            oc = buda.oc(v, b['ask']['clp'])
+            ov = buda_cop.ov(v, bc['bid']['cop'])
 
             r.update({'v': v, 'p': p, 'ask_b': b['ask']['clp'], 'bid_bc': bc['bid']['cop'], 'oc': oc, 'ov': ov})
 
