@@ -6,7 +6,7 @@ matplotlib.use('Agg') # Force matplotlib to not use any Xwindows backend.
 from matplotlib import pyplot as plt
 
 filename = 'btcbot.log'
-df = pd.read_json(filename, lines=True)
+df = pd.read_json(filename, lines=True)[-2*24*60*60/3:]
 date = pd.to_datetime(df['date'], format='%Y-%m-%d %H:%M:%S', utc='America/Santiago')
 
 if 1:
