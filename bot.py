@@ -72,7 +72,7 @@ while True:
         p = p_bcb
 
         if v > 0.0005:
-            print >> sys.stderr, '++++++ v =', v, 'p =', p*100.0, 'total = ', r['total'], datetime.datetime.now()
+            print >> sys.stderr, '++++++ v =', v, 'p =', p*100.0, 'total =', r['total'], datetime.datetime.now()
             sys.stderr.flush()
 
             oc = buda_cop.oc(v, bc['ask']['cop'])
@@ -85,7 +85,7 @@ while True:
         v = min(bc['bid']['vol'], b['ask']['vol'], 0.001, sb['clp']/b['ask']['clp'])
         p = p_bbc
         if v > 0.0005:
-            print >> sys.stderr, '------ v =', v, 'p =', p*100.0, 'total = ', r['total'], datetime.datetime.now()
+            print >> sys.stderr, '------ v =', v, 'p =', p*100.0, 'total =', r['total'], datetime.datetime.now()
             sys.stderr.flush()
 
             buda.oc(v, b['ask']['clp'])
