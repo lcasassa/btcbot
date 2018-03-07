@@ -63,10 +63,10 @@ def order(client, market, type, vol, btc):
         sys.stderr.flush()
         raise e
     finally:
-        if o_id is not None:
+        if o_id is not None and 'os' in locals() and 'state' in os and os['state'] != 'traded':
             client.cancelOrder(o_id)
 
-    return os
+    return os if 'os' in locals() else None
 
 
 def oc(vol, btc):

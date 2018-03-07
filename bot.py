@@ -75,10 +75,10 @@ while True:
             print >> sys.stderr, '++++++ v =', v, 'p =', p*100.0, 'total = ', r['total'], datetime.datetime.now()
             sys.stderr.flush()
 
-            buda_cop.oc(v, bc['ask']['cop'])
-            buda.ov(v, b['bid']['clp'])
+            oc = buda_cop.oc(v, bc['ask']['cop'])
+            ov = buda.ov(v, b['bid']['clp'])
 
-            r.update({'v': -v, 'p': p, 'ask_bc': bc['ask']['cop'], 'bid_b': b['bid']['clp']})
+            r.update({'v': -v, 'p': p, 'ask_bc': bc['ask']['cop'], 'bid_b': b['bid']['clp'], 'oc': oc, 'ov': ov})
 
     r.update({'ask_b': 0, 'bid_bc': 0})
     if p_bbc > -11/100.0:
@@ -91,7 +91,7 @@ while True:
             buda.oc(v, b['ask']['clp'])
             buda_cop.ov(v, bc['bid']['cop'])
 
-            r.update({'v': v, 'p': p, 'ask_b': b['ask']['clp'], 'bid_bc': bc['bid']['cop']})
+            r.update({'v': v, 'p': p, 'ask_b': b['ask']['clp'], 'bid_bc': bc['bid']['cop'], 'oc': oc, 'ov': ov})
 
     if 'v' not in r:
         r['v'] = 0
