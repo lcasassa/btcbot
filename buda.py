@@ -2,17 +2,16 @@ from pprint import pprint as pp
 import surbtc
 from requests.exceptions import ConnectionError
 import sys
+import math
 import timeout
 
 try:
     import config
 except ImportError:
-    import sys
     print >> sys.stderr, 'copy config.py.example to config.py'
     sys.exit(1)
 
 if config.buda_llave == '' or config.buda_secreto == '':
-    import sys
     print >> sys.stderr, 'Please set buda_llave and buda_secreto in config.py'
     sys.exit(1)
 
@@ -36,7 +35,7 @@ def bidask():
 
 def saldo():
     clp = float(client.getBalance('clp')['available_amount'][0])
-    btc = float(client.getBalance('btc')['available_amount'][0])
+    btc = math.floor(float(client.getBalance('btc')['available_amount'][0]) * 1000000) / 1000000
     return {'clp': clp, 'btc': btc}
 
 
