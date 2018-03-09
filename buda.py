@@ -46,7 +46,7 @@ def order(client, market, type, vol, btc):
         o_id = o['id']
         os = client.getOrder(o_id)
         timeout.set_timeout(10)
-        while os['state'] == 'pending':
+        while os['state'] == 'pending' or os['state'] == 'received':
             os = client.getOrder(o_id)
         timeout.stop_timeout()
         if os['state'] == 'canceled':
@@ -62,7 +62,7 @@ def order(client, market, type, vol, btc):
         sys.stderr.flush()
         raise e
     finally:
-        if o_id is not None and 'os' in locals() and 'state' in os and (os['state'] not in ['traded', 'received']):
+        if o_id is not None and 'os' in locals() and 'state' in os and (os['state'] not in ['traded']):
             client.cancelOrder(o_id)
 
     return os if 'os' in locals() else None
