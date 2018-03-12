@@ -50,15 +50,15 @@ def order(client, market, type, vol, btc):
             os = client.getOrder(o_id)
         timeout.stop_timeout()
         if os['state'] == 'canceled':
-            print >> sys.stderr, "Order Canceled by user?... order_id:", o_id, "market:", market, "type:", type, "vol:", vol, "btc:", btc
+            print >> sys.stderr, "Buda Order Canceled by user?... order_id:", o_id, "market:", market, "type:", type, "vol:", vol, "btc:", btc
             sys.stderr.flush()
             raise EnvironmentError("Orden" + str(o_id) + "cancelado por el usuario?")
     except timeout.TimeoutError as e:
-        print >> sys.stderr, "Timeout... market:", market, "type:", type, "vol:", vol, "btc:", btc, str(e)
+        print >> sys.stderr, "Buda Timeout... market:", market, "type:", type, "vol:", vol, "btc:", btc, str(e)
         sys.stderr.flush()
         raise e
     except ConnectionError as e:
-        print >> sys.stderr, "Connection error... market:", market, "type:", type, "vol:", vol, "btc:", btc, str(e)
+        print >> sys.stderr, "Buda Connection error... market:", market, "type:", type, "vol:", vol, "btc:", btc, str(e)
         sys.stderr.flush()
         raise e
     finally:
