@@ -18,15 +18,27 @@ while True:
         date = str(datetime.datetime.now()).split(".")[0]
         try:
             sb = buda.saldo()
-            sbc = buda_cop.saldo()
-            sk = kraken.saldo()
             b = buda.bidask()
+        except Exception as e:
+            print >> sys.stderr, "Buda", e
+            sys.exit(1)
+        try:
+            sbc = buda_cop.saldo()
             bc = buda_cop.bidask()
+        except Exception as e:
+            print >> sys.stderr, "Buda COP", e
+            sys.exit(1)
+        try:
+            sk = kraken.saldo()
             k = kraken.bidask()
+        except Exception as e:
+            print >> sys.stderr, "Kraken", e
+            sys.exit(1)
+        try:
             u = usdclp.usdclp()
             c = copclp.copclp()
         except Exception as e:
-            print >> sys.stderr, e
+            print >> sys.stderr, "Apilayer", e
             sys.exit(1)
     else:
         date = '2018-02-10 23:20:27'
